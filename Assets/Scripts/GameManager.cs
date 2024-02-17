@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     // Declare required variables
-    [Header("Objects")]
+    [Header("UI")]
+    [SerializeField] private TMP_Text eventText;
+    [SerializeField] private Slider foodSlider;
+    [SerializeField] private Slider waterSlider;
     [SerializeField] private GameObject introCanvas;
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
@@ -28,7 +33,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Update slides to match variables
+        foodSlider.value = foodReserve;
+        waterSlider.value = waterReserve;
     }
 
     void RandomEvent()
