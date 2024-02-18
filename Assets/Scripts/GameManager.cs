@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winCanvas;
     [SerializeField] private GameObject promptText;
 
-    [Header("Game")]
+    [Header("Characters")]
+    [SerializeField] private GameObject camels;
+    [SerializeField] private GameObject characters;
     [SerializeField] private Animator[] camelAnimators;
     [SerializeField] private Animator[] characterAnimators;
     [SerializeField] private ParallaxManager[] parallaxBackgrounds;
@@ -49,6 +51,9 @@ public class GameManager : MonoBehaviour
         eventCanvas.SetActive(false);
         dieCanvas.SetActive(false);
         winCanvas.SetActive(false);
+
+        camels.SetActive(false);
+        characters.SetActive(false);
     }
 
     // Update is called once per frame
@@ -57,6 +62,9 @@ public class GameManager : MonoBehaviour
         // Start the game, if not started yet
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !isGameEnded)
         {
+            camels.SetActive(true);
+            characters.SetActive(true);
+
             isGameStarted = true;
             introCanvas.SetActive(false);
 

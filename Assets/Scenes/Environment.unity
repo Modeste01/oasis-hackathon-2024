@@ -3305,7 +3305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &949500346
 Transform:
   m_ObjectHideFlags: 0
@@ -5809,9 +5809,22 @@ MonoBehaviour:
   dieCanvas: {fileID: 1936624145}
   winCanvas: {fileID: 351027751}
   promptText: {fileID: 1582290051}
-  camelAnimators: []
-  characterAnimators: []
-  parallaxBackgrounds: []
+  camels: {fileID: 949500345}
+  characters: {fileID: 2033930059}
+  camelAnimators:
+  - {fileID: 1701653186}
+  - {fileID: 818664614}
+  - {fileID: 695822787}
+  characterAnimators:
+  - {fileID: 422785325}
+  - {fileID: 464800972}
+  - {fileID: 341990202}
+  - {fileID: 393337691}
+  - {fileID: 624097702}
+  parallaxBackgrounds:
+  - {fileID: 1517200733}
+  - {fileID: 344005216}
+  - {fileID: 1520124044}
   foodReserve: 10
   maxFoodReserve: 10
   waterReserve: 20
@@ -6221,7 +6234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2033930060
 Transform:
   m_ObjectHideFlags: 0
