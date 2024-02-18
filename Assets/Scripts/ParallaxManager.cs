@@ -22,7 +22,7 @@ public class ParallaxManager : MonoBehaviour
     void Update()
     {
         // Move background while unpaused
-        if (isPaused)
+        if (!isPaused)
         {
             // Move the backgroudn cosntantly
             transform.Translate(Vector3.left * speed * Time.deltaTime);

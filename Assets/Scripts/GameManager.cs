@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
             introCanvas.SetActive(false);
 
             eventCanvas.SetActive(true);
-            eventText.text = string.Empty;
+            eventText.text = string.Empty; 
         }
 
         // Update slides to match variables
@@ -90,19 +90,19 @@ public class GameManager : MonoBehaviour
         promptText.SetActive(false);
 
         // Traverse and pause animations and background scrolling
-        for(int i = 0; i < camelAnimators.Length; i++)
+        for (int i = 0; i < camelAnimators.Length; i++)
         {
-            camelAnimators[i].enabled = false;
+            camelAnimators[i].enabled = true;
         }
 
         for (int i = 0; i < characterAnimators.Length; i++)
         {
-            characterAnimators[i].enabled = false;
+            characterAnimators[i].enabled = true;
         }
 
         for (int i = 0; i < camelAnimators.Length; i++)
         {
-            parallaxBackgrounds[i].PauseScrolling(true);
+            parallaxBackgrounds[i].PauseScrolling(false);
         }
 
         // Decide if an event happens
@@ -263,17 +263,17 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < camelAnimators.Length; i++)
             {
-                camelAnimators[i].enabled = true;
+                camelAnimators[i].enabled = false;
             }
 
             for (int i = 0; i < characterAnimators.Length; i++)
             {
-                characterAnimators[i].enabled = true;
+                characterAnimators[i].enabled = false;
             }
 
             for (int i = 0; i < camelAnimators.Length; i++)
             {
-                parallaxBackgrounds[i].PauseScrolling(false);
+                parallaxBackgrounds[i].PauseScrolling(true);
             }
         }
     }
