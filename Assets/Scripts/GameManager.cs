@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     IEnumerator RandomEvent(int eventID)
     {
         isInEvent = true;
+        distanceLeft -= amountOfDistanceBetweenEvents;
 
         if (Random.Range(0.0f, 1.0f) <= threshold)
         {
