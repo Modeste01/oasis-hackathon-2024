@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject introCanvas;
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
+    [SerializeField] private GameObject winCanvas;
 
     [Header("Game")]
     [SerializeField] private int foodReserve;
@@ -29,23 +30,26 @@ public class GameManager : MonoBehaviour
 
     private bool isGameStarted;
     private bool isInEvent;
+    private bool isGameEnded;
 
     // Start is called before the first frame update
     void Start()
     {
         isGameStarted = false;
         isInEvent = false;
+        isGameEnded = false;
 
         introCanvas.SetActive(true);
         eventCanvas.SetActive(false);
         dieCanvas.SetActive(false);
+        winCanvas.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Start the game, if not started yet
-        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !isGameEnded)
         {
             isGameStarted = true;
             introCanvas.SetActive(false);
@@ -59,7 +63,7 @@ public class GameManager : MonoBehaviour
         waterSlider.fillAmount = waterReserve / maxWaterReserve;
 
         // Reset if the player is currently in an event if space is pressed
-        if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted && !isGameEnded)
         {
             StartCoroutine(RandomEvent(Random.Range(0, 4)));
         }
@@ -68,9 +72,6 @@ public class GameManager : MonoBehaviour
     IEnumerator RandomEvent(int eventID)
     {
         isInEvent = true;
-
-        distanceLeft -= amountOfDistanceBetweenEvents;
-        distanceLeftSlider.fillAmount += amountOfDistanceBetweenEvents / maxDistance;
 
         if (Random.Range(0.0f, 1.0f) <= threshold)
         {
@@ -198,7 +199,24 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        distanceLeft -= amountOfDistanceBetweenEvents;
+        distanceLeftSlider.fillAmount += amountOfDistanceBetweenEvents / maxDistance;
+
         yield return new WaitForSeconds(betweenEventDelay);
         isInEvent = false;
+
+        // End game if player loses all food or water
+        if (foodReserve <= 0 || waterReserve <= 0)
+        {
+            dieCanvas.SetActive(true);
+            isGameEnded = true;
+        }
+
+        // Win game is player gets to end
+        if (distanceLeft < 0 && !isGameEnded)
+        {
+            winCanvas.SetActive(true);
+            isGameEnded = true;
+        }
     }
 }
