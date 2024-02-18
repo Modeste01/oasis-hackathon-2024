@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207547220}
   - component: {fileID: 207547221}
+  - component: {fileID: 207547222}
   m_Layer: 0
   m_Name: Desert Foreground
   m_TagString: Untagged
@@ -483,12 +484,26 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 50, y: 2.5081635}
+  m_Size: {x: 100, y: 2.5081635}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &207547222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207547219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f96aa9efae68114da71dc82ceae5bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  xBound: -19.2
 --- !u!1 &255224836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,6 +1885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1349981848}
   - component: {fileID: 1349981849}
+  - component: {fileID: 1349981850}
   m_Layer: 0
   m_Name: Desert Middleground
   m_TagString: Untagged
@@ -1938,12 +1954,26 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 50, y: 9.52206}
+  m_Size: {x: 100, y: 9.52206}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1349981850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349981847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f96aa9efae68114da71dc82ceae5bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  xBound: -19.2
 --- !u!1 &1379728636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,6 +2239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613827313}
   - component: {fileID: 1613827314}
+  - component: {fileID: 1613827315}
   m_Layer: 0
   m_Name: Desert Background
   m_TagString: Untagged
@@ -2277,12 +2308,26 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 50, y: 8.0354805}
+  m_Size: {x: 100, y: 8.0354805}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1613827315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613827312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f96aa9efae68114da71dc82ceae5bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  xBound: -19.2
 --- !u!1 &1928239834
 GameObject:
   m_ObjectHideFlags: 0
