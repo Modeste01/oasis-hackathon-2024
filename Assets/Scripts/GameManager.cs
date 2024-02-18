@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxWaterReserve;
     [Range(0, 1)] [SerializeField] private float threshold;
     [SerializeField] private float distanceLeft;
+    [SerializeField] private float maxDistance;
     [SerializeField] private float amountOfDistanceBetweenEvents;
     [SerializeField] private float betweenEventDelay;
 
@@ -67,15 +68,16 @@ public class GameManager : MonoBehaviour
     IEnumerator RandomEvent(int eventID)
     {
         isInEvent = true;
+
         distanceLeft -= amountOfDistanceBetweenEvents;
+        distanceLeftSlider.fillAmount += amountOfDistanceBetweenEvents / maxDistance;
 
         if (Random.Range(0.0f, 1.0f) <= threshold)
         {
             switch (eventID)
             {
                 case 0:
-                    // Robber takes food
-
+                    // Lose food
                     if (Random.Range(0, 2) == 0)
                     {
                         eventText.text = "You are held at gunpoint and a group of bandits steal your food.";
@@ -84,22 +86,24 @@ public class GameManager : MonoBehaviour
                     {
                         eventText.text = "You are under the threat of a firearm, and a band of outlaws snatches your food provisions from you.";
                     }
+
                     foodReserve -= Random.Range(1, 4);
                     break;
                 case 1:
-                    // Robber takes water
+                    // Lose water
                     if (Random.Range(0, 2) == 0)
                     {
-                        eventText.text = "You are held at gunpoint and a group of bandits steal your water.";
+                        eventText.text = "A camel gets spooked and spills some water...";
                     }
                     else
                     {
                         eventText.text = "You are under the threat of a firearm, and a band of outlaws steals from you one a significant water reserve.";
                     }
+
                     waterReserve -= Random.Range(2, 5);
                     break;
                 case 2:
-                    // Come across oasis
+                    // Getting food
                     if (Random.Range(0, 2) == 0)
                     {
                         eventText.text = "Your friend catches and prepares a quail and everyone gets a nice meal.";
@@ -108,10 +112,11 @@ public class GameManager : MonoBehaviour
                     {
                         eventText.text = "Your companion snares and cooks a sandgrouse, allowing for everyone to have a delightful supper.";
                     }
+
                     foodReserve += Random.Range(1, 3);
                     break;
                 case 3:
-                    // Robber takes water
+                    // Getting water
                     if (Random.Range(0, 2) == 0)
                     {
                         eventText.text = "Lucky you, you come across an oasis and found some water.";
