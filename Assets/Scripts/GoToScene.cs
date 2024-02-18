@@ -8,6 +8,12 @@ public class GoToScene : MonoBehaviour
     // Changes the scene to the supplied scene
     public void GoToTheScene(string newSceneName)
     {
+        StartCoroutine(GoToTheSceneCoroutine(newSceneName));
+    }
+
+    IEnumerator GoToTheSceneCoroutine(string newSceneName)
+    {
+        yield return new WaitForSeconds(1);
         SceneManager.LoadSceneAsync(newSceneName);
     }
 }

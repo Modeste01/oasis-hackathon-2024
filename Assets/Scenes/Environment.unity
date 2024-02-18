@@ -433,7 +433,7 @@ MonoBehaviour:
     platform for bringing awareness to social issues and humanitarian crises. Clearly,
     video games won\u2019t directly solve this problem, but educating people and
     bringing awareness to this crisis is an important part of the solution. According
-    to the International Organization for Migration, at least <color=#B72929>203</color>
+    to the International Organization for Migration, at least <color=#B72929>1,028</color>
     lives were lost on North African land routes. Even more tragically, <color=#B72929>2,277</color>
     people perished during the Sahara Desert crossing, falling victim to harsh conditions,
     violence, and more. These brave souls embarked on this perilous journey in search
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SPACE to continue...
+  m_text: SPACE to start the adventure...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40ee9b72552a5d645b4b43e888956828, type: 2}
   m_sharedMaterial: {fileID: 2115236574040309614, guid: 40ee9b72552a5d645b4b43e888956828, type: 2}
@@ -2840,7 +2840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -3925,7 +3925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
