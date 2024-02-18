@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text eventText;
     [SerializeField] private Image foodSlider;
     [SerializeField] private Image waterSlider;
+    [SerializeField] private Image distanceLeftSlider;
     [SerializeField] private GameObject introCanvas;
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxWaterReserve;
     [Range(0, 1)] [SerializeField] private float threshold;
     [SerializeField] private float distanceLeft;
+    [SerializeField] private float amountOfDistanceBetweenEvents;
     [SerializeField] private float betweenEventDelay;
 
     private bool isGameStarted;
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
             introCanvas.SetActive(false);
 
             eventCanvas.SetActive(true);
-            eventText.text = "Click SPACE to start the journey.";
+            eventText.text = string.Empty;
         }
 
         // Update slides to match variables
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
         // Reset if the player is currently in an event if space is pressed
         if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted)
         {
-            StartCoroutine(RandomEvent(Random.Range(0, 2)));
+            StartCoroutine(RandomEvent(Random.Range(0, 4)));
         }
     }
 
@@ -80,9 +82,23 @@ public class GameManager : MonoBehaviour
                     eventText.text = "You are held at gunpoint and a group of bandits steal your water.";
                     waterReserve -= Random.Range(2, 5);
                     break;
+                case 2:
+                    // Come across oasis
+                    eventText.text = "Your friend catches and prepares a quail and everyone gets a nice meal.";
+                    foodReserve += Random.Range(1, 3);
+                    break;
+                case 3:
+                    // Robber takes water
+                    eventText.text = "Lucky you, you come across an oasis and found some water.";
+                    waterReserve += Random.Range(2, 4);
+                    break;
                 default:
                     break;
             }
+
+            // Ensures the food and water don't go outside allowed variables
+            Mathf.Clamp(waterReserve, 0, maxWaterReserve);
+            Mathf.Clamp(foodReserve, 0, maxFoodReserve);
         }
         else
         {
