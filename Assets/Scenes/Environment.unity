@@ -1579,7 +1579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &351027752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4343,10 +4343,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Congratulations, you are one of the <color=#B72929>fortunate few</color>
-    that successfully completes the treacherous Sub-Saharan migrant land route. 
-    You are now on your way to better life opportunities and education.  The sky
-    is the limit.
+  m_text: 'Congratulations, you are one of the <color=#B72929>fortunate few</color>
+    that successfully completes the treacherous Sub-Saharan migrant land route to
+    Morocco.
+
+
+    You may choose to remain in Morocco where you have better <color=#B72929>life
+    opportunities</color> and education, or you can continue the route to Europe
+    and face more <color=#B72929>life threatening challenges.</color>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40ee9b72552a5d645b4b43e888956828, type: 2}
   m_sharedMaterial: {fileID: 2115236574040309614, guid: 40ee9b72552a5d645b4b43e888956828, type: 2}
@@ -5807,6 +5811,7 @@ MonoBehaviour:
   promptText: {fileID: 1582290051}
   camelAnimators: []
   characterAnimators: []
+  parallaxBackgrounds: []
   foodReserve: 10
   maxFoodReserve: 10
   waterReserve: 20
