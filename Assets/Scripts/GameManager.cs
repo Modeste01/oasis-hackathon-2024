@@ -13,10 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image waterSlider;
     [SerializeField] private Image distanceLeftSlider;
     [SerializeField] private GameObject introCanvas;
+    [SerializeField] private GameObject secondIntroCanvas;
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
     [SerializeField] private GameObject winCanvas;
     [SerializeField] private GameObject promptText;
+    [SerializeField] private TMP_Text secondIntroMessage;
 
     [Header("Characters")]
     [SerializeField] private GameObject camels;
@@ -43,15 +45,19 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Reset bools
         isGameStarted = false;
         isInEvent = false;
         isGameEnded = false;
 
+        // Reset object active state
         introCanvas.SetActive(true);
+        secondIntroCanvas.SetActive(false);
         eventCanvas.SetActive(false);
         dieCanvas.SetActive(false);
         winCanvas.SetActive(false);
 
+        // Hide camels and characters
         camels.SetActive(false);
         characters.SetActive(false);
     }
@@ -59,28 +65,45 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Start the game, if not started yet
-        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !isGameEnded)
+        // Show the second intro panel
+        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !isGameEnded && introCanvas.activeSelf && !secondIntroCanvas.activeSelf)
         {
+            introCanvas.SetActive(false);
+            secondIntroCanvas.SetActive(true);
+
+            // Set a random max food and water
+            maxFoodReserve = Random.Range(10, 15);
+            maxWaterReserve = Random.Range(20, 25);
+            foodReserve = maxFoodReserve;
+            waterReserve = maxWaterReserve;
+
+            // Update text to reflect random values
+            secondIntroMessage.text = "Because of harsh economic and social issues, you only have access to limited supplies. You start off with <color=#B72929>" +
+                maxFoodReserve + "</color> units of food and <color=#B72929>" +
+                maxWaterReserve + "</color> units of water...\n\nFor many, adequate supplies isn't guaranteed, much like in this simulation.";
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !isGameEnded && !introCanvas.activeSelf && secondIntroCanvas.activeSelf)
+        {
+            // Show the camels and characters
             camels.SetActive(true);
             characters.SetActive(true);
 
+            // Start the game and hide intro canvases
             isGameStarted = true;
-            introCanvas.SetActive(false);
+            secondIntroCanvas.SetActive(false);
 
+            // Show a blank event canvas
             eventCanvas.SetActive(true);
-            eventText.text = string.Empty; 
+            eventText.text = "Press SPACE to continue walking..."; 
         }
-
-        // Update slides to match variables
-        foodSlider.fillAmount = foodReserve / maxFoodReserve;
-        waterSlider.fillAmount = waterReserve / maxWaterReserve;
-
-        // Reset if the player is currently in an event if space is pressed
-        if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted && !isGameEnded)
+        else if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted && !isGameEnded && !introCanvas.activeSelf && !secondIntroCanvas.activeSelf)
         {
             StartCoroutine(RandomEvent(Random.Range(0, 4)));
         }
+
+        // Update slides to match variables
+        foodSlider.fillAmount = Mathf.Clamp((float) foodReserve / maxFoodReserve, 0, 1);
+        waterSlider.fillAmount = Mathf.Clamp((float) waterReserve / maxWaterReserve, 0, 1);
     }
 
     IEnumerator RandomEvent(int eventID)
@@ -122,7 +145,7 @@ public class GameManager : MonoBehaviour
                         eventText.text = "You are under the threat of a firearm, and a band of outlaws snatches your food provisions from you.";
                     }
 
-                    foodReserve -= Random.Range(1, 4);
+                    foodReserve -= Random.Range(3, 6);
                     break;
                 case 1:
                     // Lose water
@@ -135,7 +158,7 @@ public class GameManager : MonoBehaviour
                         eventText.text = "You are under the threat of a firearm, and a band of outlaws steals from you one a significant water reserve.";
                     }
 
-                    waterReserve -= Random.Range(2, 5);
+                    waterReserve -= Random.Range(5, 9);
                     break;
                 case 2:
                     // Getting food
@@ -179,17 +202,17 @@ public class GameManager : MonoBehaviour
                 case 0:
                     if(Random.Range(0,2) == 0)
                     {
-                        eventText.text = "You stop to take a short break.";
+                        eventText.text = "You slow down to take a short break.";
                     }
                     else
                     {
-                        eventText.text = "You pause for a brief respite.";
+                        eventText.text = "You slow down for a brief respite.";
                     }
                     break;
                 case 1:
                     if (Random.Range(0, 2) == 0)
                     {
-                        eventText.text = "You pause to watch, a crow flies overheard.";
+                        eventText.text = "You notice a crow flying overheard.";
                     }
                     else
                     {
@@ -199,11 +222,11 @@ public class GameManager : MonoBehaviour
                 case 2:
                     if (Random.Range(0, 2) == 0)
                     {
-                        eventText.text = "You pause to watch, a falcon flies overheard.";
+                        eventText.text = "You notice a flacon flying overheard.";
                     }
                     else
                     {
-                        eventText.text = "You halt your journey, as a hawk soars in the sky above.";
+                        eventText.text = "You slow your journey, as a hawk soars in the sky above.";
                     }
                         
                     break;
@@ -237,26 +260,24 @@ public class GameManager : MonoBehaviour
         distanceLeft -= amountOfDistanceBetweenEvents;
         distanceLeftSlider.fillAmount += amountOfDistanceBetweenEvents / maxDistance;
 
-        // Wait for a few seconds before allowing player to continue
-        yield return new WaitForSeconds(betweenEventDelay);
-
-        // Reset variables
-        isInEvent = false;
-        promptText.SetActive(true);
-
         // End game if player loses all food or water
         if (foodReserve <= 0 || waterReserve <= 0)
         {
             dieCanvas.SetActive(true);
             isGameEnded = true;
+            isGameStarted = false;
         }
 
         // Win game is player gets to end
-        if (distanceLeft < 0 && !isGameEnded)
+        if (distanceLeft <= 0 && !isGameEnded && isGameStarted)
         {
             winCanvas.SetActive(true);
             isGameEnded = true;
+            isGameStarted = false;
         }
+
+        // Wait for a few seconds before allowing player to continue
+        yield return new WaitForSeconds(betweenEventDelay);
 
         // Traverse and unpause animations and background scrolling, if game hasn't ended
         if (!isGameEnded)
@@ -276,5 +297,9 @@ public class GameManager : MonoBehaviour
                 parallaxBackgrounds[i].PauseScrolling(true);
             }
         }
+
+        // Reset variables
+        isInEvent = false;
+        promptText.SetActive(true);
     }
 }
