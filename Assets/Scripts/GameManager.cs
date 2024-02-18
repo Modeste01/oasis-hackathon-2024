@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
     [SerializeField] private GameObject winCanvas;
+    [SerializeField] private GameObject promptText;
+
+    [Header("Game")]
+    [SerializeField] private Animator[] camelAnimators;
+    [SerializeField] private Animator[] characterAnimators;
+    [SerializeField] private ParallaxManager[] parallaxBackgrounds;
 
     [Header("Game")]
     [SerializeField] private int foodReserve;
@@ -71,10 +77,30 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RandomEvent(int eventID)
     {
+        // Reset variables
         isInEvent = true;
+        promptText.SetActive(false);
 
+        // Traverse and pause animations and background scrolling
+        for(int i = 0; i < camelAnimators.Length; i++)
+        {
+            camelAnimators[i].enabled = false;
+        }
+
+        for (int i = 0; i < characterAnimators.Length; i++)
+        {
+            characterAnimators[i].enabled = false;
+        }
+
+        for (int i = 0; i < camelAnimators.Length; i++)
+        {
+            parallaxBackgrounds[i].PauseScrolling(true);
+        }
+
+        // Decide if an event happens
         if (Random.Range(0.0f, 1.0f) <= threshold)
         {
+            // Play an event based on a random number
             switch (eventID)
             {
                 case 0:
@@ -199,11 +225,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Adjust distance value and slider fill
         distanceLeft -= amountOfDistanceBetweenEvents;
         distanceLeftSlider.fillAmount += amountOfDistanceBetweenEvents / maxDistance;
 
+        // Wait for a few seconds before allowing player to continue
         yield return new WaitForSeconds(betweenEventDelay);
+
+        // Reset variables
         isInEvent = false;
+        promptText.SetActive(true);
 
         // End game if player loses all food or water
         if (foodReserve <= 0 || waterReserve <= 0)
@@ -217,6 +248,25 @@ public class GameManager : MonoBehaviour
         {
             winCanvas.SetActive(true);
             isGameEnded = true;
+        }
+
+        // Traverse and unpause animations and background scrolling, if game hasn't ended
+        if (!isGameEnded)
+        {
+            for (int i = 0; i < camelAnimators.Length; i++)
+            {
+                camelAnimators[i].enabled = true;
+            }
+
+            for (int i = 0; i < characterAnimators.Length; i++)
+            {
+                characterAnimators[i].enabled = true;
+            }
+
+            for (int i = 0; i < camelAnimators.Length; i++)
+            {
+                parallaxBackgrounds[i].PauseScrolling(false);
+            }
         }
     }
 }
