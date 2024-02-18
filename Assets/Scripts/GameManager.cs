@@ -9,15 +9,17 @@ public class GameManager : MonoBehaviour
     // Declare required variables
     [Header("UI")]
     [SerializeField] private TMP_Text eventText;
-    [SerializeField] private Slider foodSlider;
-    [SerializeField] private Slider waterSlider;
+    [SerializeField] private Image foodSlider;
+    [SerializeField] private Image waterSlider;
     [SerializeField] private GameObject introCanvas;
     [SerializeField] private GameObject eventCanvas;
     [SerializeField] private GameObject dieCanvas;
 
     [Header("Game")]
     [SerializeField] private int foodReserve;
+    [SerializeField] private int maxFoodReserve;
     [SerializeField] private int waterReserve;
+    [SerializeField] private int maxWaterReserve;
     [Range(0, 1)] [SerializeField] private float threshold;
     [SerializeField] private float distanceLeft;
     [SerializeField] private float betweenEventDelay;
@@ -50,8 +52,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Update slides to match variables
-        foodSlider.value = foodReserve;
-        waterSlider.value = waterReserve;
+        foodSlider.fillAmount = foodReserve / maxFoodReserve;
+        waterSlider.fillAmount = waterReserve / maxWaterReserve;
 
         // Reset if the player is currently in an event if space is pressed
         if (Input.GetKeyDown(KeyCode.Space) && !isInEvent && isGameStarted)
@@ -100,7 +102,7 @@ public class GameManager : MonoBehaviour
                     eventText.text = "Your friend notices a poisonous snake in the distance.";
                     break;
                 case 4:
-                    eventText.text = "You start noticin figures in the sand, it's time to take a break.";
+                    eventText.text = "You start noticing figures in the sand, it's time to take a break.";
                     break;
                 default:
                     eventText.text = "You notice a sandworm making its way to you.";
